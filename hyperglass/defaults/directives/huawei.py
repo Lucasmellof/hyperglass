@@ -21,18 +21,18 @@ NAME = "Huawei VRP"
 PLATFORMS = ["huawei", "huawei_vrpv8"]
 
 Huawei_BGPRoute = BuiltinDirective(
-    id="__hyperglass_huawei_bgp_route__",
+    id="__hyperglass_huawei_bgp_route_table__",
     name="BGP Route",
     rules=[
         RuleWithIPv4(
             condition="0.0.0.0/0",
             action="permit",
-            command="display bgp routing-table {target}",
+            command="display bgp routing-table {target} | no-more",
         ),
         RuleWithIPv6(
             condition="::/0",
             action="permit",
-            command="display bgp ipv6 routing-table {target}",
+            command="display bgp ipv6 routing-table {target} | no-more",
         ),
     ],
     field=Text(description="IP Address, Prefix, or Hostname"),
@@ -64,8 +64,8 @@ Huawei_BGPCommunity = BuiltinDirective(
             condition="*",
             action="permit",
             commands=[
-                "display bgp routing-table community {target}",
-                "display bgp ipv6 routing-table community {target}",
+                "display bgp routing-table community {target} | no-more",
+                "display bgp ipv6 routing-table community {target} | no-more",
             ],
         )
     ],
